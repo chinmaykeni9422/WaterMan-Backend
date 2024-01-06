@@ -19,7 +19,7 @@ const registerUser = asyncHandler( async (req, res) => {
     }
 
     // check if user already exits - email/username (new "$or" operator lerned)
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or:[{userName}, {email}]
     })
 
@@ -42,7 +42,7 @@ const registerUser = asyncHandler( async (req, res) => {
     )
 
     //check for user creation 
-    if(createdUser){
+    if(!createdUser){
         throw new ApiError(500, "somthing went wrong while registering the user")
     }
 
@@ -53,4 +53,4 @@ const registerUser = asyncHandler( async (req, res) => {
 
 });
 
-export {registerUser };
+export {registerUser};
