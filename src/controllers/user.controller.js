@@ -4,6 +4,23 @@ import User from "../models/user.model.js"
 import ApiResponse from "../utils/ApiResponse.js";
 
 
+const generateAccessAndRfeshTokens = async(userId) => {
+    try {
+        const AuthUser = await User.findById(userId)
+        const accessToken = AuthUser.generateAccessToken()
+        const refreshToken = AuthUser.generateRefreshToken()
+
+        AuthUser.refreshToken = refreshToken
+        await AuthUser.save({validateBeforeSave: false})
+
+        return {accessToken, refreshToken}
+
+    } catch (error) {
+        throw new ApiError(500, "samething went wrong while generating refresh and access token")
+    }
+};
+
+
 const registerUser = asyncHandler( async (req, res) => {
 
     // get user details from frontend
@@ -53,4 +70,56 @@ const registerUser = asyncHandler( async (req, res) => {
 
 });
 
-export {registerUser};
+const loginUser = asyncHandler( async (req, res) => { 
+    // get user details from frontend
+    const {userName, fullName, email, phonenumber, password} = req.body
+
+    if(!email){
+        throw new ApiError(400, "email is required")
+    }
+
+    const user = await User.findOne(email) ;
+
+    if(!user){
+        throw new ApiError(404,"user does not exist")
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+
+    if(isPasswordValid){
+        throw new ApiError(401, "password does not exist")
+    }
+
+    const {accessToken, refreshToken} = await generateAccessAndRfeshTokens(user._id)
+
+    const loggedInUser = await User.findById(userId).select("-password -refreshToken")
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user: loggedInUser, accessToken, refreshToken
+            },
+            "User Logged in Succesfully"
+        )
+    )
+
+    // username or email
+    // find the user 
+    // password check
+    // acces and refresh token
+    // send cookie
+});
+
+
+
+export {registerUser, loginUser};
