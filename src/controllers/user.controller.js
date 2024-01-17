@@ -23,15 +23,20 @@ const generateAccessAndRfeshTokens = async(userId) => {
 const registerUser = asyncHandler( async (req, res) => {
 
     // get user details from frontend
-    const {userName, fullName, email, phonenumber, password} = req.body
+    const {userName, fullName, email, phonenumber, password, confirmPassword} = req.body
 
     // validation - not empty (NEW "some" method lerned)
     if(
-        [userName, fullName, email, phonenumber, password].some((field) => {
+        [userName, fullName, email, phonenumber, password, confirmPassword].some((field) => {
             return field?.trim() === ""
         })
     ){
         throw new ApiError(400, "All fields are required")
+    }
+
+    //check if password and confirm password is correct or not 
+    if(password !== confirmPassword){
+        throw new ApiError(400, "Password and confirm password is not matched");
     }
 
     // check if user already exits - email/username (new "$or" operator lerned)
@@ -49,12 +54,13 @@ const registerUser = asyncHandler( async (req, res) => {
         fullName,
         email,
         phonenumber,
-        password
+        password,
+        confirmPassword
     })
 
     // remove password and refresh token field from response
     const createdUser = await User.findById(user._id).select(
-        "-password -refreshToken"
+        "-password -refreshToken -confirmPassword"
     )
 
     //check for user creation 
