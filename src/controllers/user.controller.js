@@ -3,7 +3,6 @@ import ApiError from "../utils/ApiError.js"
 import User from "../models/user.model.js"
 import ApiResponse from "../utils/ApiResponse.js";
 
-
 const generateAccessAndRfeshTokens = async(userId) => {
     try {
         const AuthUser = await User.findById(userId)
@@ -149,6 +148,5 @@ const logoutUser = asyncHandler( async (req, res) => {
     .clearCookie("refreshToken", options)
     .json( new ApiResponse(200, {}, "user logged Out"))
 });
-
 
 export {registerUser, loginUser, logoutUser};
