@@ -10,11 +10,10 @@ router.route("/register").post(registerUser)
 router.route("/login").post(loginUser)
 
 //secured routes
-router.route("/logout").post(verifyJWT ,logoutUser)
+router.route("/logout").get(verifyJWT ,logoutUser)
 
 // dashboard page
 router.route("/dashboard").get(verifyJWT, (req, res) => {
-    console.log(`hello i am about page`);
     res.send(req.user);
 })
 
