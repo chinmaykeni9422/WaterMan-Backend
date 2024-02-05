@@ -151,12 +151,12 @@ const logoutUser = asyncHandler( async (req, res) => {
 
 const moistSensorData = asyncHandler( async (req, res) => {
 
-    const { moisture } = req.body;
+    // const { moisture } = req.body;
 
-    console.log(moisture) ;
+    console.log(req.body) ;
 
     return res.status(201).json(
-        new ApiResponse(200, moisture, "moisture data getting") 
+        new ApiResponse(200, "moisture data getting") 
     )
 });
 
