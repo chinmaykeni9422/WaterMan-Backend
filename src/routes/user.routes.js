@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser, moistSensorData } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 
@@ -16,5 +16,8 @@ router.route("/logout").get(verifyJWT ,logoutUser)
 router.route("/dashboard").get(verifyJWT, (req, res) => {
     res.send(req.user);
 })
+
+//sensor Api
+router.route("/moisture-data").post(moistSensorData) ;
 
 export default router;

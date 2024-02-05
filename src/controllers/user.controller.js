@@ -149,4 +149,15 @@ const logoutUser = asyncHandler( async (req, res) => {
     .json( new ApiResponse(200, {}, "user logged Out"))
 });
 
-export {registerUser, loginUser, logoutUser};
+const moistSensorData = asyncHandler( async (req, res) => {
+
+    const { moisture } = req.body;
+
+    console.log(moisture) ;
+
+    return res.status(201).json(
+        new ApiResponse(200, moisture, "moisture data getting") 
+    )
+});
+
+export {registerUser, loginUser, logoutUser, moistSensorData};
