@@ -2,7 +2,6 @@ import  Express  from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-
 const app = Express();
 
 // cors configuration
