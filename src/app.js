@@ -2,30 +2,24 @@ import  Express  from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import {SerialPort}  from "serialport";
+import { ReadlineParser } from "serialport";
+import { handleData } from "./controllers/Arduino.controller.js";
+
 
 //------------------my arduno data listener code -----------
 
- const parsers = SerialPort.parsers ;
+const port = new SerialPort({
+   path: 'COM5',
+   baudRate: 9600
+});
 
- const parser = new parsers.Readline({
-    delimiter: '\r\n'
- }) ;
+const parser = port.pipe(new ReadlineParser({delimiter: '\r\n'}));
 
- var port = new SerialPort('COM5',{
-    baudRate: 9600,
-    dataBits: 8,
-    parity:'none',
-    stopBits: 1,
-    flowControl: false
- }) ;
-
- port.pipe(parser);
-
- parser.on('data',function(data){
-    console.log(data) ;
- }) ;
+parser.on('data', handleData) ;
 
 //---------------------------END----------------------------
+
+
 const app = Express();
 
 // cors configuration
