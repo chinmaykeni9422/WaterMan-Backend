@@ -15,7 +15,11 @@ const port = new SerialPort({
 
 const parser = port.pipe(new ReadlineParser({delimiter: '\r\n'}));
 
-parser.on('data', handleData) ;
+const Id = "65c5b8543cac73fd629742cd" ;
+
+parser.on('data', data => {
+    handleData(data, Id) ;
+}) ;
 
 //---------------------------END----------------------------
 
