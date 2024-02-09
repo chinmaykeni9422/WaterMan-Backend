@@ -1,16 +1,21 @@
 import SensorData from "../models/sensorData.model.js";
 
-const handleData =  async (data) => {
+const handleData =  async (data, Id) => {
 
     try {
 
         const moistureData = JSON.parse(data);
 
-        const sensorObject = await SensorData.create({
-            moisture: moistureData.moisture
-        });
+        const existingData = await SensorData.findById(Id);
 
-        console.log("Moisture data received and stored for user:", sensorObject);
+        if (existingData) {
+            // Update the existing document
+            existingData.moisture = moistureData.moisture;
+            const updateData = await existingData.save();
+            console.log("Moisture data updated for user:", updateData);
+        } else {
+            console.log("no existing user found")
+        }
 
     } catch (error) {
 
