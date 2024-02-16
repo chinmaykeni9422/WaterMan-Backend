@@ -39,9 +39,16 @@ const userSchema = new Schema(
             required: [true, 'Password is required'],
             unique: true,
         },
+        moisture: {
+            type: String, 
+            required: true,
+        },
         refreshToken: {
             type: String
         }
+    },
+    {
+        timestamps: true
     }
 );
 
