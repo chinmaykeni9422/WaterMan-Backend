@@ -1,4 +1,4 @@
-import SensorData from "../models/sensorData.model.js";
+import User from "../models/user.model.js";
 
 const handleData =  async (data, Id) => {
 
@@ -6,7 +6,7 @@ const handleData =  async (data, Id) => {
 
         const moistureData = JSON.parse(data);
 
-        const existingData = await SensorData.findById(Id);
+        const existingData = await User.findById(Id);
 
         if (existingData) {
             // Update the existing document
