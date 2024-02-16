@@ -17,7 +17,4 @@ router.route("/dashboard").get(verifyJWT, (req, res) => {
     res.send(req.user);
 })
 
-//sensor Api
-router.route("/moisture-data").post(moistSensorData) ;
-
 export default router;
