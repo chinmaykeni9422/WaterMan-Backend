@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import {SerialPort}  from "serialport";
 import { ReadlineParser } from "serialport";
 import { handleData } from "./controllers/Arduino.controller.js";
+import { Server } from "socket.io";
+import { createServer } from "http";
 
 
 //------------------my arduno data listener code -----------
@@ -18,6 +20,11 @@ const parser = port.pipe(new ReadlineParser({delimiter: '\r\n'}));
 const Id = "65b1e2063535322f1fce9d1b" ;
 
 parser.on('data', data => {
+
+    //---scoket.io
+    io.emit('moistureData', { moisture: data, deviceId: Id });
+    //----------
+
     handleData(data, Id) ;
 }) ;
 
@@ -54,5 +61,29 @@ import userRouter from './routes/user.routes.js'
 app.use("/api/v1/users", userRouter)
 
 
+//------------------socket.io code----------------------
+const server = createServer(app) ;
+
+// Create a new instance of Socket.IO by passing the HTTP server
+const io = new Server(server, {
+    cors: {
+      origin: process.env.CORS_ORIGIN,
+      methods: ["GET", "POST"],
+      credentials: true
+    }
+});
+
+// Listen for socket connections
+io.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+  
+    // You can add more socket event handlers here
+});
+  
+  // Start the server
+const PORT =  3000;
+  server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 export default app ;
