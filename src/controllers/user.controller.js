@@ -153,7 +153,7 @@ const moistSensorData = asyncHandler( async (req, res) => {
 
     // const { moisture } = req.body;
 
-    console.log(req.body) ;
+    // console.log(req.body) ;
 
     return res.status(201).json(
         new ApiResponse(200, "moisture data getting") 

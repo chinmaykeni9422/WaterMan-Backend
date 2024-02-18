@@ -14,7 +14,7 @@ router.route("/logout").get(verifyJWT ,logoutUser)
 
 // dashboard page
 router.route("/dashboard").get(verifyJWT, (req, res) => {
-    res.send(req.user);
+    // res.send(req.user);
 })
 
 export default router;
