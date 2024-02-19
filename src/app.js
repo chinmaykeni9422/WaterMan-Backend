@@ -76,14 +76,13 @@ const io = new Server(server, {
 // Listen for socket connections
 io.on('connection', (socket) => {
     console.log('Socket connected:', socket.id);
-  
     // You can add more socket event handlers here
 });
   
   // Start the server
 const PORT =  3000;
   server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`WebSocket Server is running on port: ${PORT}`);
 });
 
 //----------------------------------------------------------------------------

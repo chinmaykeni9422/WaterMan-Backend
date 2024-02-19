@@ -40,8 +40,7 @@ const userSchema = new Schema(
             unique: true,
         },
         moisture: {
-            type: String, 
-            required: true,
+            type: String
         },
         refreshToken: {
             type: String

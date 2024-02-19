@@ -12,14 +12,18 @@ const handleData =  async (data, Id) => {
             // Update the existing document
             existingData.moisture = moistureData.moisture;
             const updateData = await existingData.save();
-            console.log("Moisture data updated for user:", updateData);
+            // console.log("Moisture data updated for user:", updateData.moisture);
         } else {
             console.log("no existing user found")
         }
 
     } catch (error) {
 
-        console.error("Error handling moisture data:", error);
+        if (error instanceof SyntaxError) {
+            console.error("Invalid moisture data received. Error:", error.message);
+        } else {
+            console.error("Error handling moisture data:", error);
+        }
         
     }
 
