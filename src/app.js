@@ -22,7 +22,7 @@ const Id = "65d7ffd319ae02a71304979d" ;
 parser.on('data', data => {
 
     //---scoket.io
-    io.emit('moistureData', { moisture: data, deviceId: Id });
+    io.emit('sensorData', { sensorData: data, deviceId: Id });
     //----------
 
     handleData(data, Id) ;

@@ -42,6 +42,9 @@ const userSchema = new Schema(
         moisture: {
             type: String
         },
+        Turbudity: {
+            type: String
+        },
         refreshToken: {
             type: String
         }

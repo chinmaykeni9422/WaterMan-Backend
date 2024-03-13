@@ -5,13 +5,16 @@ const handleData =  async (data, Id) => {
 
     try {
 
-        const moistureData = JSON.parse(data);
+        const sensorData = JSON.parse(data);
 
         const existingData = await User.findById(Id);
 
         if (existingData) {
             // Update the existing document
-            existingData.moisture = moistureData.moisture;
+            existingData.moisture = sensorData.Moisture;
+            
+            existingData.Turbudity = sensorData.Turbudity;
+
             const updateData = await existingData.save();
             // console.log("Moisture data updated for user:", updateData.moisture);
 
@@ -32,9 +35,9 @@ const handleData =  async (data, Id) => {
     } catch (error) {
 
         if (error instanceof SyntaxError) {
-            console.error("Invalid moisture data received. Error:", error.message);
+            console.error("Invalid sensor data received. Error:", error.message);
         } else {
-            console.error("Error handling moisture data:", error);
+            console.error("Error handling sensor data:", error);
         }
         
     }
