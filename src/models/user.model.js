@@ -39,10 +39,13 @@ const userSchema = new Schema(
             required: [true, 'Password is required'],
             unique: true,
         },
-        moisture: {
+        PH: {
             type: String
         },
         Turbudity: {
+            type: String
+        },
+        Tempreture:{
             type: String
         },
         refreshToken: {
