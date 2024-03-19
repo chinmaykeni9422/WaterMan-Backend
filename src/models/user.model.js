@@ -48,6 +48,9 @@ const userSchema = new Schema(
         Tempreture:{
             type: String
         },
+        flowMeter:{
+            type: String
+        },
         refreshToken: {
             type: String
         }

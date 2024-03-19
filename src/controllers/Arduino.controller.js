@@ -14,6 +14,7 @@ const handleData =  async (data, Id) => {
             existingData.PH = sensorData.PH;     
             existingData.Turbudity = sensorData.Turbudity;
             existingData.Tempreture = sensorData.Tempreture;
+            existingData.flowMeter = sensorData.flowMeter;
 
             const updateData = await existingData.save();
             // console.log("Moisture data updated for user:", updateData.moisture);
