@@ -21,7 +21,7 @@ const handleData =  async (data, Id) => {
 
 
             // Call the sendEmail function with the userEmail
-            if (updateData.PH < 7) {
+            if (updateData.PH === 7) {
                 const subject = 'Moisture Alert';
                 const text = `Moisture level is low! Please take action.`;
             
