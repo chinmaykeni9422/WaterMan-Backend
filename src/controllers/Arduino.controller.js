@@ -17,7 +17,7 @@ const handleData =  async (data, Id) => {
             existingData.flowMeter = sensorData.flowMeter;
 
             const updateData = await existingData.save();
-            // console.log("Moisture data updated for user:", updateData.moisture);
+            console.log(updateData);
 
 
             // Call the sendEmail function with the userEmail
