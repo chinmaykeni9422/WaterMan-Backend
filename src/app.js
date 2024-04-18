@@ -11,7 +11,7 @@ import { createServer } from "http";
 //------------------my arduno data listener code -----------
 
 const port = new SerialPort({
-   path: 'COM6',
+   path: 'COM5',
    baudRate: 9600
 });
 

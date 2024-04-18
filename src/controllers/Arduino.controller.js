@@ -19,15 +19,119 @@ const handleData =  async (data, Id) => {
             const updateData = await existingData.save();
             console.log(updateData);
 
-
+          //---------------------------------------------------------------
             // Call the sendEmail function with the userEmail
-            if (updateData.PH === 7) {
-                const subject = 'Moisture Alert';
-                const text = `Moisture level is low! Please take action.`;
+            if (updateData.PH < 6.50 && updateData.Turbudity <= 10 ){
+                const subject = 'PH and Turbudity Alert';
+                const text = `
+                  PH is ${updateData.PH} which is low !!! water is ACIDIC,
+                  Turbudity is ${updateData.Turbudity} which is normal therefore water is clean,
+                  tempreture is ${updateData.Tempreture} °C ,
+                  Total quantity of water till Now ${updateData.flowMeter} L/min
+                `;
             
                 // Send an email to the logged-in user
                 sendEmail(process.env.TOEMAIL, subject, text);
-              }
+            }
+            else if(updateData.PH < 6.50 && (updateData.Turbudity > 10 && updateData.Turbudity <= 15)){
+                const subject = 'PH and Turbudity Alert';
+                const text = `
+                  PH is ${updateData.PH} which is low !!! water is ACIDIC,
+                  Turbudity is ${updateData.Turbudity} which is less turbudity therefore water is cloudy,
+                  tempreture is ${updateData.Tempreture} °C ,
+                  Total quantity of water till Now ${updateData.flowMeter} L/min
+                `;
+            
+                // Send an email to the logged-in user
+                sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            else if(updateData.PH < 6.50 && updateData.Turbudity > 15){
+                const subject = 'PH and Turbudity Alert';
+                const text = `
+                  PH is ${updateData.PH} which is low !!! water is ACIDIC,
+                  Turbudity is ${updateData.Turbudity} which is more turbudity therefore water is dirty,
+                  tempreture is ${updateData.Tempreture} °C ,
+                  Total quantity of water till Now ${updateData.flowMeter} L/min
+                `;
+            
+                // Send an email to the logged-in user
+                sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            // else if((updateData.PH >= 6.50 && updateData.PH <= 7.50) && updateData.Turbudity <= 10){
+            //     const subject = 'PH and Turbudity Alert';
+            //     const text = `
+            //       PH is ${updateData.PH} which is normal !!! water is NEUTRAL,
+            //       Turbudity is ${updateData.Turbudity} which is normal therefore water is clean,
+            //       tempreture is ${updateData.Tempreture} °C ,
+            //       Total quantity of water till Now ${updateData.flowMeter} L/min
+            //     `;
+            
+            //     // Send an email to the logged-in user
+            //     sendEmail(process.env.TOEMAIL, subject, text);
+            // }
+            else if((updateData.PH >= 6.50 && updateData.PH <= 7.50) && (updateData.Turbudity > 10 && updateData.Turbudity <= 15)){
+                const subject = 'PH and Turbudity Alert';
+                const text = `
+                  PH is ${updateData.PH} which is normal !!! water is NEUTRAL,
+                  Turbudity is ${updateData.Turbudity} which is less turbudity therefore water is cloudy,
+                  tempreture is ${updateData.Tempreture} °C ,
+                  Total quantity of water till Now ${updateData.flowMeter} L/min
+                `;
+            
+                // Send an email to the logged-in user
+                sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            else if((updateData.PH >= 6.50 && updateData.PH <= 7.50) && updateData.Turbudity > 15){
+              const subject = 'PH and Turbudity Alert';
+              const text = `
+                PH is ${updateData.PH} which is normal !!! water is NEUTRAL,
+                Turbudity is ${updateData.Turbudity} which is more turbudity therefore water is dirty,
+                tempreture is ${updateData.Tempreture} °C ,
+                Total quantity of water till Now ${updateData.flowMeter} L/min
+              `;
+          
+              // Send an email to the logged-in user
+              sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            else if(updateData.PH > 7.50 && updateData.Turbudity <= 10){
+              const subject = 'PH and Turbudity Alert';
+              const text = `
+                PH is ${updateData.PH} which is high !!! water is BASIC,
+                Turbudity is ${updateData.Turbudity} which is normal therefore water is clean,
+                tempreture is ${updateData.Tempreture} °C ,
+                Total quantity of water till Now ${updateData.flowMeter} L/min
+              `;
+          
+              // Send an email to the logged-in user
+              sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            else if(updateData.PH > 7.50 && (updateData.Turbudity > 10 && updateData.Turbudity <= 15)){
+              const subject = 'PH and Turbudity Alert';
+              const text = `
+                PH is ${updateData.PH} which is high !!! water is BASIC,
+                Turbudity is ${updateData.Turbudity} which is less turbudity therefore water is cloudy,
+                tempreture is ${updateData.Tempreture} °C ,
+                Total quantity of water till Now ${updateData.flowMeter} L/min
+              `;
+          
+              // Send an email to the logged-in user
+              sendEmail(process.env.TOEMAIL, subject, text);
+            }
+            else if(updateData.PH > 7.50 && updateData.Turbudity > 15){
+              const subject = 'PH and Turbudity Alert';
+              const text = `
+                PH is ${updateData.PH} which is high !!! water is BASIC,
+                Turbudity is ${updateData.Turbudity} which is more turbudity therefore water is dirty,
+                tempreture is ${updateData.Tempreture} °C ,
+                Total quantity of water till Now ${updateData.flowMeter} L/min
+              `;
+          
+              // Send an email to the logged-in user
+              sendEmail(process.env.TOEMAIL, subject, text);
+            }
+          
+          
+            //---------------------------------------------------------------
 
         } else {
             console.log("no existing user found")
